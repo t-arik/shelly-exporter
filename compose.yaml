@@ -1,0 +1,7 @@
+services:
+  exporter:
+    build: .
+    ports:
+      - 2002:2002
+    environment:
+      SHELLY_PLUG_ADDRESS: 192.168.2.156,192.168.2.159
