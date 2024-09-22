@@ -107,7 +107,7 @@ func collectMetrics() error {
 		power.With(labels).Set(s.Apower)
 		voltage.With(labels).Set(s.Voltage)
 		current.With(labels).Set(s.Current)
-		energy.With(labels).Set(s.Aenergy.total)
+		energy.With(labels).Set(s.Aenergy.Total)
 	}
 
 	return nil
@@ -160,7 +160,7 @@ type SwitchStatus struct {
 
 	// Information about the active energy counter (shown if applicable)
 	Aenergy struct {
-		total float64 // Total energy consumed in Watt-hours
+		Total float64 // Total energy consumed in Watt-hours
 	}
 
 	//  Information about the temperature
