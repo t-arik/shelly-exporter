@@ -42,22 +42,22 @@ func run(ctx context.Context) error {
 		Namespace: "shelly",
 		Subsystem: "switch",
 		Name:      "power",
-	}, []string{"id"})
+	}, []string{"id", "address"})
 	voltage = promauto.NewGaugeVec(prometheus.GaugeOpts{
 		Namespace: "shelly",
 		Subsystem: "switch",
 		Name:      "voltage",
-	}, []string{"id"})
+	}, []string{"id", "address"})
 	current = promauto.NewGaugeVec(prometheus.GaugeOpts{
 		Namespace: "shelly",
 		Subsystem: "switch",
 		Name:      "current",
-	}, []string{"id"})
+	}, []string{"id", "address"})
 	energy = promauto.NewGaugeVec(prometheus.GaugeOpts{
 		Namespace: "shelly",
 		Subsystem: "switch",
 		Name:      "energy",
-	}, []string{"id"})
+	}, []string{"id", "address"})
 
 	go func() {
 		ticker := time.NewTicker(5 * time.Second)
@@ -103,7 +103,7 @@ func collectMetrics() error {
 		if err != nil {
 			return fmt.Errorf("error getting switch status for shelly %s: %w", p.addr, err)
 		}
-		labels := prometheus.Labels{"id": strconv.Itoa(s.Id)}
+		labels := prometheus.Labels{"id": strconv.Itoa(s.Id), "address": addr}
 		power.With(labels).Set(s.Apower)
 		voltage.With(labels).Set(s.Voltage)
 		current.With(labels).Set(s.Current)
